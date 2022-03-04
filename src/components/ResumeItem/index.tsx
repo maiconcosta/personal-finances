@@ -1,3 +1,4 @@
+import { currencyFormat } from '../../helpers/currencyFormat';
 import * as S from './styles';
 
 type Props = {
@@ -10,7 +11,7 @@ const ResumeItem = ({ title, value, color }: Props) => {
   return (
     <S.Container>
       <S.Title>{title}</S.Title>
-      <S.Info color={color}>R$ {value}</S.Info>
+      <S.Info color={color}>{currencyFormat(value)}</S.Info>
     </S.Container>
   );
 };

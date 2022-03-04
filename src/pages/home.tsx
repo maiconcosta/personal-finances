@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Item } from '../types/Item';
 import { items } from '../data/items';
+
 import { filterListByMonth, getCurrentMonth } from '../helpers/dateFilter';
 
-import * as S from '../styles/pages/home';
+import { categories } from '../data/categories';
+
 import InfoArea from '../components/InfoArea';
 import InputArea from '../components/InputArea';
 import TableArea from '../components/TableArea';
-import { categories } from '../data/categories';
+
+import * as S from '../styles/pages/home';
 
 const Home = () => {
   const [list, setList] = useState(items);
@@ -46,6 +49,12 @@ const Home = () => {
     setList(newList);
   };
 
+  const handleRemoveItem = (item: Item) => {
+    const newList = list.filter((el) => el.id !== item.id);
+
+    setList(newList);
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -58,8 +67,8 @@ const Home = () => {
           income={income}
           expense={expense}
         />
-        <InputArea onAdd={handleAddItem} />
-        <TableArea list={filteredList} />
+        <InputArea onAdd={handleAddItem} list={list} />
+        <TableArea list={filteredList} onRemove={handleRemoveItem} />
       </S.Body>
     </S.Container>
   );
